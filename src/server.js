@@ -24,6 +24,37 @@ const setupServer = () => {
     next();
   });
 
+  // Root route with API instructions
+  app.get('/', (req, res) => {
+    res.status(200).json({
+      message: "Welcome to Contacts API",
+      instructions: {
+        endpoints: [
+          {
+            path: "/contacts",
+            method: "GET",
+            description: "Get all contacts",
+            response: {
+              status: 200,
+              message: "Successfully found contacts!",
+              data: "Array of contact objects"
+            }
+          },
+          {
+            path: "/contacts/:contactId",
+            method: "GET",
+            description: "Get a specific contact by ID",
+            response: {
+              status: 200,
+              message: "Successfully found contact with id {contactId}!",
+              data: "Contact object"
+            }
+          }
+        ]
+      }
+    });
+  });
+
   // Routes
   app.get('/contacts', async (req, res) => {
     try {
